@@ -1,0 +1,73 @@
+﻿@model Direct_Barber.Models.SolicitudIndexViewModel
+
+@{
+    ViewData["Title"] = "Solicitudes";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Solicitudes del Cliente</h1>
+
+<!-- Tabla 1: Solicitudes del Cliente Autenticado -->
+<h2>Solicitudes</h2>
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Dirección</th>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var solicitud in Model.SolicitudesCliente)
+
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => solicitud.Dirección)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Fecha)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Precio)</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@solicitud.IdSolicitud">Editar</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@solicitud.IdSolicitud">Cancelar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Tabla 2: Solicitudes con Barbero -->
+<h2>Solicitudes Confirmadas (Con Barbero)</h2>
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Dirección</th>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Barbero</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var solicitud in Model.SolicitudesConBarbero)
+
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => solicitud.Dirección)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Fecha)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Precio)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.IdBarberoNavigation.Nombre)</td>
+                <td>
+                    <form asp-action="CancelarServicio" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@solicitud.IdSolicitud" />
+                        <button type="submit" class="btn btn-danger btn-sm">Cancelar Servicio</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

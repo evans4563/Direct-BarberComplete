@@ -1,0 +1,45 @@
+﻿@model Direct_Barber.Models.SolicitudIndexViewModel
+
+@{
+    ViewData["Title"] = "Solicitudes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Solicitudes Confirmadas (Donde Tú Eres el Barbero)</h1>
+
+<!-- Tabla 2: Solicitudes donde el usuario autenticado es el barbero -->
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Dirección</th>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Cliente</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var solicitud in Model.SolicitudesDelBarbero)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => solicitud.Dirección)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Fecha)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Precio)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.IdClienteNavigation.Nombre)</td>
+                <td>
+                    <form asp-action="CancelarServicio" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@solicitud.IdSolicitud" />
+                        <button type="submit" class="btn btn-danger btn-sm">Cancelar Servicio</button>
+                    </form>
+                    <form asp-action="Completar" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@solicitud.IdSolicitud" />
+                        <button type="submit" class="btn btn-success btn-sm">Solicitud Completada</button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

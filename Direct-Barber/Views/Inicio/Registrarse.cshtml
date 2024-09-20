@@ -1,0 +1,64 @@
+﻿@model Direct_Barber.Models.Usuario;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Registrarse</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/auth-styles.css" />
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo-container">
+            <img src="~/images/logo.png" alt="Logo" class="logo" />
+        </div>
+        <h2 class="text-center mb-4">Registro</h2>
+        <form asp-controller="Inicio" asp-action="Registrarse" method="post" enctype="multipart/form-data">
+            <input class="form-control mb-3" type="text" placeholder="Documento" asp-for="Documento" required />
+            <input class="form-control mb-3" type="text" placeholder="Nombre" asp-for="Nombre" required />
+            <input class="form-control mb-3" type="text" placeholder="Apellido" asp-for="Apellido" required />
+            <input class="form-control mb-3" type="text" placeholder="Contacto" asp-for="Telefono" required />
+            <input class="form-control mb-3" type="text" placeholder="Dirección" asp-for="Direccion" required />
+            <div class="mb-3">
+                <label asp-for="FecNacimiento" class="form-label">Fecha de nacimiento</label>
+                <input class="form-control" type="date" asp-for="FecNacimiento" required />
+            </div>
+            <input class="form-control mb-3" type="email" placeholder="Correo electrónico" asp-for="Correo" required />
+            <input class="form-control mb-3" type="password" placeholder="Contraseña" asp-for="Contrasena" required />
+            <div class="mb-3">
+                <label asp-for="ImagenFile" class="form-label">Foto de perfil</label>
+                <input class="form-control" type="file" name="foto" required />
+                <span asp-validation-for="ImagenFile" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Id_Rol" class="form-label">Seleccione su Rol</label>
+                <select class="form-control" asp-for="Id_Rol" asp-items="ViewBag.Roles">
+                    <option value="">-- Seleccione un Rol --</option>
+                </select>
+                <span asp-validation-for="Id_Rol" class="text-danger"></span>
+            </div>
+
+
+            <div class="d-grid gap-2 mb-3">
+                <button class="btn btn-custom" type="submit">Registrarse</button>
+            </div>
+            @if (ViewData.ContainsKey("Mensaje") && ViewData["Mensaje"] != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewData["Mensaje"]
+                </div>
+            }
+
+            <div class="text-center">
+                ¿Ya tienes una cuenta? <a href="@Url.Action("IniciarSesion","Inicio")">Inicia Sesión</a>
+            </div>
+        </form>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

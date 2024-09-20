@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/auth-styles.css" />
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo-container">
+            <img src="~/images/logo.png" alt="Logo" class="logo" />
+        </div>
+        <h2 class="text-center mb-4">Iniciar Sesión</h2>
+        <form asp-controller="Inicio" asp-action="IniciarSesion" method="post">
+            <input class="form-control mb-3" type="email" placeholder="Correo electrónico" required name="Correo" />
+            <input class="form-control mb-3" type="password" placeholder="Contraseña" required name="Contrasena" />
+            <div class="d-grid gap-2 mb-3">
+                <button class="btn btn-custom" type="submit">Iniciar sesión</button>
+            </div>
+            @if (ViewData["Mensaje"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["Mensaje"]
+                </div>
+            }
+            <div class="text-center">
+                ¿No tienes una cuenta? <a href="@Url.Action("Registrarse","Inicio")">Regístrate</a>
+            </div>
+        </form>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

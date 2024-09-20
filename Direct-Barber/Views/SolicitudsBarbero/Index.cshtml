@@ -1,0 +1,43 @@
+﻿@model Direct_Barber.Models.SolicitudIndexViewModel
+
+@{
+    ViewData["Title"] = "Solicitudes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Solicitudes Pendientes (Sin Barbero Asignado)</h1>
+
+<!-- Tabla 1: Solicitudes donde IdBarbero está vacío -->
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Dirección</th>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Cliente</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var solicitud in Model.SolicitudesSinBarbero)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => solicitud.Dirección)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Fecha)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.Precio)</td>
+                <td>@Html.DisplayFor(modelItem => solicitud.IdClienteNavigation.Nombre)</td>
+                <td>
+                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@solicitud.IdSolicitud">Detalles</a>
+
+                    <!-- Formulario para aceptar la solicitud -->
+                    <form asp-action="Aceptar" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@solicitud.IdSolicitud" />
+                        <button type="submit" class="btn btn-warning btn-sm">Aceptar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

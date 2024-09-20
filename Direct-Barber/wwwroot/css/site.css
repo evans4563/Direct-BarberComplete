@@ -1,0 +1,29 @@
+/* Estilos personalizados para la página principal */
+.hero-image {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.hero-text {
+    background-color: rgba(0, 0, 0, 0.5); /* Para oscurecer un poco el fondo */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Ajustes para el navbar */
+.navbar {
+    padding: 15px;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #f1c40f !important; /* Color al pasar el mouse */
+    }
